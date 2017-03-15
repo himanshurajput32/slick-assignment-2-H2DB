@@ -1,10 +1,11 @@
 package com.example
 
-import com.example.models.Employee
-import com.example.tables.EmployeeRepo
+import com.example.repos.ProjectRepo
+
+import scala.concurrent.Await
+import scala.concurrent.duration.Duration
+
 
 object Hello extends App{
-
-
-    EmployeeRepo.insert(Employee(6,"eeeee"))
+  println(Await.result(ProjectRepo.leftJoinExample,Duration.Inf).length)
 }
