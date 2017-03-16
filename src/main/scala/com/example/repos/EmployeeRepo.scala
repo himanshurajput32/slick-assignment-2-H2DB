@@ -1,7 +1,7 @@
 package com.example.repos
 
 import com.example.connection.{DBComponent, H2DBComponent}
-import com.example.models.Employee
+import com.example.models.{Employee, Project}
 import com.example.tables.EmployeeTable
 
 /**
@@ -13,7 +13,7 @@ trait EmployeeRepo  extends EmployeeTable {
 
   def create = db.run(employeeQuery.schema.create)
 
-  def insert(emp: Employee) = db.run(employeeQuery returning employeeQuery.map(_.name) += emp)
+  def insert(emp: Employee) = db.run(employeeQuery returning employeeQuery.map(_.id) += emp)
 
   def delete(id: Int) = db.run {
     employeeQuery.filter(_.id === id).delete
@@ -28,9 +28,9 @@ trait EmployeeRepo  extends EmployeeTable {
     employeeQuery.filter(_.id === id).update(Employee(id, name))
   }
 
-  //  def upsert(emp:Employee)={
-  //   if(employeeQuery.filter(_.id===emp.id).map())
-  //  }
+  def upsert(emp: Employee) = db.run{
+    employeeQuery.insertOrUpdate(emp)
+  }
 
 }
 object EmployeeRepo extends EmployeeRepo with H2DBComponent

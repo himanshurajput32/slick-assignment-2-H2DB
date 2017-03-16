@@ -26,14 +26,8 @@ trait ProjectRepo extends ProjectTable {
     projectQuery.filter(_.empid === id).update(Project(id, name))
   }
 
-  def upsert(project: Project) = {
-    val v = projectQuery.filter(_.empid === project.empId).to[List].result
-    if (v == Nil) {
-      insert(project)
-    }
-    else {
-      update(project.empId, project.name)
-    }
+  def upsert(project: Project) =db.run{
+    projectQuery.insertOrUpdate(project)
   }
 
   def innerJoinExample = {
