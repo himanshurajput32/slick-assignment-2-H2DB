@@ -15,7 +15,7 @@ this:DBComponent=>
 
     val name = column[String]("name")
 
-    def * = (id, name) <> (Employee.tupled, Employee.unapply)
+    def * = (name,id) <> (Employee.tupled, Employee.unapply)
   }
 
   val employeeQuery = TableQuery[EmployeeTable]

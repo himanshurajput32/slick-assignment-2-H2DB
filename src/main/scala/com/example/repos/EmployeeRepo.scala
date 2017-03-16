@@ -25,7 +25,7 @@ trait EmployeeRepo  extends EmployeeTable {
   }
 
   def update(id: Int, name: String) = db.run {
-    employeeQuery.filter(_.id === id).update(Employee(id, name))
+    employeeQuery.filter(_.id === id).update(Employee(name,id))
   }
 
   def upsert(emp: Employee) = db.run{

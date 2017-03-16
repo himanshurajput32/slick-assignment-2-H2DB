@@ -20,7 +20,7 @@ package repoSpec
         x == 0))
     }
     test("Insert data") {
-      EmployeeRepo.insert(Employee(10, "dddd")).map(x => assert(x == 10))
+      EmployeeRepo.insert(Employee("dddd",10)).map(x => assert(x == 10))
     }
     test("Find data ") {
       EmployeeRepo.getAllEmployee.map(x => assert(x.length != 2))
